@@ -8,12 +8,15 @@ class TransactionServices {
       String url = baseURL + '/transaction';
 
       print("URL Transaction : $url");
+      // var response = await client.get(Uri.parse(url),
+      // headers: {
+      //   'Accept' : 'application/json',
+      //   'Authorization' : 'Bearer ${User.token}',
+      // }
+      // );
       var response = await client.get(Uri.parse(url),
-      headers: {
-        'Accept' : 'application/json',
-        'Authorization' : 'Bearer ${User.token}',
-      }
-      );
+          headers: ApiServices.headersGet());
+
       print(User.token);
       print("Response Transaction : ${response.body}");
 
@@ -36,10 +39,7 @@ class TransactionServices {
     print("URL SUBMIT TRANSACTION : $url");
     var response = await client.post(
       Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${User.token}',
-      },
+      headers: ApiServices.headersPost(),
       body: jsonEncode({
         'food_id': transaction.food!.id,
         'user_id': transaction.user!.id,

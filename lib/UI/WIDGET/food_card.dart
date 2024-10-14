@@ -29,7 +29,8 @@ class FoodCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
                     image: NetworkImage(food?.picturePath ?? ''),
-                    fit: BoxFit.cover
+                    fit: BoxFit.cover,
+                  scale: 1.0
                  ),
               ),
             ),

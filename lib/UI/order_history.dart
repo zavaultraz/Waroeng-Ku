@@ -91,9 +91,14 @@ class _orderHistoryState extends State<orderHistory> {
                                   .map(
                                     (e) => Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: OrderListItem(
-                                        transaction: e,
-                                        itemWidth: listItemWidth,
+                                      child: GestureDetector(
+                                        onTap: (){
+                                          Get.to(PaymentMethodPage(paymentURL: e.paymentUrl!));
+                                        },
+                                        child: OrderListItem(
+                                          transaction: e,
+                                          itemWidth: listItemWidth,
+                                        ),
                                       ),
                                     ),
                                   )

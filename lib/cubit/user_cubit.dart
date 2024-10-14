@@ -13,35 +13,41 @@ class UserCubit extends Cubit<UserState> {
   Future<void> signIn(String email, String password) async {
     ApiReturnValue<User> result = await UserServices.signIn(email, password);
 
-    if(result.value != null){
+    if (result.value != null) {
       emit(userLoaded(result.value!));
-    }else{
+    } else {
       emit(UserLoadingFailed(result.message!));
     }
   }
-  Future<void> signUp(User user,String password,
-      {File? pictureFile}) async {
-    ApiReturnValue<User> result = await UserServices.signUp(user, password,pictureFile:pictureFile);
-    if(result.value != null){
-      emit(userLoaded(result.value!));
-    }else{
-      emit(UserLoadingFailed(result.message!));
-    }
 
+  Future<void> signUp(User user, String password, {File? pictureFile}) async {
+    ApiReturnValue<User> result =
+        await UserServices.signUp(user, password, pictureFile: pictureFile);
+    if (result.value != null) {
+      emit(userLoaded(result.value!));
+    } else {
+      emit(UserLoadingFailed(result.message!));
+    }
   }
-  Future<void>UploadProfilePicture(File pictureFile)async {
-    ApiReturnValue<String> result = await UserServices.uploadPicturePath(pictureFile);
+
+  Future<void> UploadProfilePicture(File pictureFile) async {
+    ApiReturnValue<String> result =
+        await UserServices.uploadPicturePath(pictureFile);
     if (result.value != null) {
       emit(userLoaded(
         (state as userLoaded).user.copyWith(
-          picturePath: 'https://food.rtid73.com/storage/${result.value}',
-        ),
+              picturePath: 'https://food.rtid73.com/storage/${result.value}',
+            ),
       ));
     }
-
-  }
-  Future<void>signOut()async{
-    emit(UserInitial());
   }
 
+  Future<void> signOut() async {
+    ApiReturnValue<bool> result = await UserServices.logout();
+    if (result.value != null) {
+      emit(UserInitial());
+    } else {
+      emit(UserLoadingFailed(result.message!));
+    }
+  }
 }

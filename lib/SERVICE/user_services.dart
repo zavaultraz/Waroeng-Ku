@@ -10,9 +10,7 @@ class UserServices {
     String url = baseURL + '/login';
 
     var response = await client.post(Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: ApiServices.headersPost(),
         body: jsonEncode(<String, String>{
           'email': email,
           'password': password,
@@ -46,24 +44,20 @@ class UserServices {
 
     String url = baseURL + '/register';
 
-    var response = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(<String, String>{
-          'name': user.name!,
-          'email': user.email!,
-          'password': password,
-          'password_confirmation': password,
-          'address': user.address!,
-          'city': user.city!,
-          'houseNumber': user.houseNumber!,
-          'phoneNumber': user.phoneNumber!,
-        },
-        )
-
-    );
+    var response = await http.post(Uri.parse(url),
+        headers: ApiServices.headersPost(),
+        body: jsonEncode(
+          <String, String>{
+            'name': user.name!,
+            'email': user.email!,
+            'password': password,
+            'password_confirmation': password,
+            'address': user.address!,
+            'city': user.city!,
+            'houseNumber': user.houseNumber!,
+            'phoneNumber': user.phoneNumber!,
+          },
+        ));
 
     if (response.statusCode != 200) {
       return ApiReturnValue(message: 'Register failed, please try again');
@@ -74,10 +68,11 @@ class UserServices {
     User.token = data['data']['access_token'];
     User value = User.fromJson(data['data']['user']);
 
-    if(pictureFile != null) {
+    if (pictureFile != null) {
       ApiReturnValue<String> result = await uploadPicturePath(pictureFile);
-      if (result.value != null){
-        value = value.copyWith(picturePath: 'https://food.rtid73.com/storage/${result.value}');
+      if (result.value != null) {
+        value = value.copyWith(
+            picturePath: 'https://food.rtid73.com/storage/${result.value}');
       }
     }
 
@@ -86,8 +81,8 @@ class UserServices {
     );
   }
 
-  static Future<ApiReturnValue<String>> uploadPicturePath(
-      File pictureFile, {http.MultipartRequest? request}) async {
+  static Future<ApiReturnValue<String>> uploadPicturePath(File pictureFile,
+      {http.MultipartRequest? request}) async {
     String url = baseURL + '/user/photo';
 
     var uri = Uri.parse(url);
@@ -99,7 +94,7 @@ class UserServices {
     }
 
     var multiPartFile =
-    await http.MultipartFile.fromPath('file', pictureFile.path);
+        await http.MultipartFile.fromPath('file', pictureFile.path);
 
     request.files.add(multiPartFile);
 
@@ -116,5 +111,24 @@ class UserServices {
     } else {
       return ApiReturnValue(message: 'Upload picture failed, please try again');
     }
+  }
+
+  static Future<ApiReturnValue<bool>> logout({http.Client? client}) async {
+    client ??= http.Client(); // Perbaikan di sini
+    String url = '${baseURL}/logout';
+    print("URL Logout: $url");
+
+    var response = await client.post(
+      Uri.parse(url),
+      headers: ApiServices.headersPost(),
+    );
+
+    print("Response logout: ${response.statusCode}"); // Perbaikan di sini
+
+    if (response.statusCode != 200) {
+      return ApiReturnValue(message: 'Logout failed');
+    }
+
+    return ApiReturnValue(value: true);
   }
 }

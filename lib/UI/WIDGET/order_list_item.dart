@@ -19,8 +19,10 @@ class OrderListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
                 image: NetworkImage(transaction.food?.picturePath ??
-                    'https://ui-avatars.com/api/?name=${transaction.food?.name}'),
-                fit: BoxFit.cover),
+                    ''),
+                fit: BoxFit.cover,
+              scale: 1.0
+            ),
           ),
         ),
         SizedBox(

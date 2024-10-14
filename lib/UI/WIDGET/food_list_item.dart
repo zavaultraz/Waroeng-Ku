@@ -17,8 +17,9 @@ class FoodListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             image: DecorationImage(
               image: NetworkImage(food?.picturePath ??
-                  'https://ui-avatars.com/api/?name=${food?.name}'),
+                  ''),
               fit: BoxFit.cover,
+              scale: 1.0
             ),
           ),
         ),

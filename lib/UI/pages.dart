@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:food_app/MODELS/model.dart';
 import 'package:food_app/UI/WIDGET/widget.dart';
@@ -34,3 +35,4 @@ part 'success_order_page.dart';
 part 'success_signup_pages.dart';
 part 'profile_pages.dart';
 part 'payment_method_page.dart';
+

@@ -276,9 +276,15 @@ class _ProfilePagesState extends State<ProfilePages> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Rate App',
-                                      style: blackFontstyle2,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        context.read<UserCubit>().signOut();
+                                        Get.to(SignInPage());
+                                      },
+                                      child: Text(
+                                        'Log Out',
+                                        style: blackFontstyle2,
+                                      ),
                                     ),
                                   ),
                                   Padding(
