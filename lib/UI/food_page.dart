@@ -27,7 +27,7 @@ class _FoodPageState extends State<FoodPage> {
         //header
         Container(
           color: Colors.white,
-          height: 100,
+          height: 80,
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: defaultMargin),
           child: Row(
@@ -38,12 +38,14 @@ class _FoodPageState extends State<FoodPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Mangan Kuy",
-                    style: blackFontstyle1,
+                    "Hello, ${(context.read<UserCubit>().state is userLoaded)
+                        ? (context.read<UserCubit>().state as userLoaded).user.name ?? ''
+                        : ''}",
+                    style: blackFontstyle1.copyWith(fontWeight: FontWeight.w700),
                   ),
                   Text(
                     'Mau makan apa hari ini',
-                    style: blackFontstyle2,
+                    style: blackFontstyle2.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -66,12 +68,17 @@ class _FoodPageState extends State<FoodPage> {
             ],
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.only(left: defaultMargin,),
+          child: Text('For your day',style: blackFontstyle2.copyWith(fontWeight: FontWeight.w600,fontSize: 24),),
+        ),
         //cardlayout
         Container(
           height: 220,
           width: double.infinity,
-          margin: EdgeInsets.symmetric(
-            vertical: defaultMargin,
+          margin: EdgeInsets.only(
+            top: 5,
+            bottom: 8
           ),
           child: BlocBuilder<FoodCubit, FoodState>(
             builder: (_, state) => (state is FoodLoaded)

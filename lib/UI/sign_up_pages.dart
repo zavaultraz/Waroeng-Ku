@@ -78,7 +78,7 @@ class _SignUpPagesState extends State<SignUpPages> {
               ),
               child: Text(
                 "Name",
-                style: blackFontstyle2,
+                style: blackFontstyle2.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -93,7 +93,7 @@ class _SignUpPagesState extends State<SignUpPages> {
                 controller: nameController,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: greyFontStyle,
+                    hintStyle: greyFontStyle.copyWith(fontWeight: FontWeight.w600),
                     hintText: 'type your name'),
               ),
             ),
@@ -107,7 +107,7 @@ class _SignUpPagesState extends State<SignUpPages> {
               ),
               child: Text(
                 "Email Address",
-                style: blackFontstyle2,
+                style: blackFontstyle2.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -122,7 +122,7 @@ class _SignUpPagesState extends State<SignUpPages> {
                 controller: emailController,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: greyFontStyle,
+                    hintStyle: greyFontStyle.copyWith(fontWeight: FontWeight.w600),
                     hintText: 'type your email address'),
               ),
             ),
@@ -136,7 +136,7 @@ class _SignUpPagesState extends State<SignUpPages> {
               ),
               child: Text(
                 "Password",
-                style: blackFontstyle2,
+                style: blackFontstyle2.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -153,7 +153,7 @@ class _SignUpPagesState extends State<SignUpPages> {
                 obscureText: true,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: greyFontStyle,
+                    hintStyle: greyFontStyle.copyWith(fontWeight: FontWeight.w600),
                     hintText: 'type your password'),
               ),
             ),
@@ -169,16 +169,63 @@ class _SignUpPagesState extends State<SignUpPages> {
                           borderRadius: BorderRadius.circular(10),
                         )),
                     onPressed: () {
-                      Get.to(() => AddressPages(
-                        users: User(
-                          name: nameController.text,
-                          email: emailController.text,
-                        ),
-                        password: passwordController.text,
-                        pictureFile: pictureFile!,
-                      ));
+
+                      if (nameController.text == "" ||
+                          emailController.text == "" ||
+                          passwordController.text == "") {
+                        Get.snackbar("", "",
+                            backgroundColor: "D9435E".toColor(),
+                            icon: Icon(
+                              MdiIcons.closeCircleOutline,
+                              color: Colors.white,
+                            ),
+                            titleText: Text(
+                              "Please fill all the field",
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            messageText: Text(
+                              "We need your name, email, and password to register",
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ));
+                      } else if (pictureFile == null) {
+                        Get.snackbar("", "",
+                            backgroundColor: "D9435E".toColor(),
+                            icon: Icon(
+                              MdiIcons.closeCircleOutline,
+                              color: Colors.white,
+                            ),
+                            titleText: Text(
+                              "Please select your profile picture",
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            messageText: Text(
+                              "We need your profile picture to identify you",
+                              style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ));
+                      } else {
+                        Get.to(() => AddressPages(
+                          users: User(
+                            name: nameController.text,
+                            email: emailController.text,
+                          ),
+                          password: passwordController.text,
+                          pictureFile: pictureFile!,
+                        ));
+                      }
                     },
-                    child: Text("CONTINUE"))),
+                    child: Text("CONTINUE",style: blackFontstyl3.copyWith(fontWeight: FontWeight.w600,color: Colors.white,fontSize: 17),))),
           ],
         ),
       ),

@@ -10,6 +10,9 @@ class ProfilePages extends StatefulWidget {
 
 class _ProfilePagesState extends State<ProfilePages> {
   int selectedTabIndex = 0;
+  void refresh(){
+    context.read<UserCubit>().getUser((context.read<UserCubit>().state as userLoaded).user);
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +32,12 @@ class _ProfilePagesState extends State<ProfilePages> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage('assets/images/food/suci.jpg'),
+                image: NetworkImage(
+                  (context.read<UserCubit>().state as userLoaded)
+                          .user
+                          .picturePath ??
+                      'https://ui-avatars.com/api/?name=${(context.read<UserCubit>().state as userLoaded)}',
+                ),
                 fit: BoxFit.cover,
               ),
             ),
@@ -38,7 +46,7 @@ class _ProfilePagesState extends State<ProfilePages> {
         SizedBox(
           height: 10,
         ),
-        const Column(
+        Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -46,8 +54,11 @@ class _ProfilePagesState extends State<ProfilePages> {
                 Icon(Icons.person, size: 25),
                 SizedBox(width: 8), // Add spacing between icon and text
                 Text(
-                  'Kadir agfa',
-                  style: TextStyle(fontSize: 20), // Optional: set text style
+                  (context.read<UserCubit>().state as userLoaded).user.name ??
+                      '', // Assuming user has an email property
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400), // Optional: set text style
                 ),
               ],
             ),
@@ -56,7 +67,8 @@ class _ProfilePagesState extends State<ProfilePages> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'kadiraja@gmail.com', // Assuming user has an email property
+                  (context.read<UserCubit>().state as userLoaded).user.email ??
+                      '', // Assuming user has an email property
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400), // Optional: set text style
@@ -175,30 +187,35 @@ class _ProfilePagesState extends State<ProfilePages> {
                             SizedBox(
                               height: 10,
                             ),
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Privacy',
-                                      style: blackFontstyle2,
+                            GestureDetector(
+                              onTap: (){
+                                Get.to(EditProfilePage())!.then((value)=>refresh());
+                              },
+                              child: Container(
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(13),
+                                    color: mainColor.withOpacity(0.9)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text(
+                                        'Edit Profile',
+                                        style: blackFontstyle2,
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 8.0),
+                                      child: Icon(
+                                        CupertinoIcons.right_chevron,
+                                        size: 20,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(

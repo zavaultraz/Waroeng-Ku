@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/MODELS/model.dart';
 import 'package:food_app/UI/pages.dart';
+import 'package:food_app/UI/splash_screen.dart';
 import 'package:food_app/cubit/cubit.dart';
 import 'package:food_app/cubit/transaction_cubit.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,10 @@ class MyApp extends StatelessWidget {
         title: 'Food app',
         theme: ThemeData(),
         debugShowCheckedModeBanner: false,
-        home: SignInPage(),
+        home: SplashScreenPage(),
+        routes: {
+          '/home-page' : (context) => SignInPage(),
+        },
       ),
     );
   }

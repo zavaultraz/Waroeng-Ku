@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:food_app/MODELS/model.dart';
+import 'package:food_app/SERVICE/services.dart';
 import 'package:food_app/UI/WIDGET/widget.dart';
 import 'package:food_app/cubit/cubit.dart';
 import 'package:food_app/cubit/food_cubit.dart';
@@ -35,4 +36,4 @@ part 'success_order_page.dart';
 part 'success_signup_pages.dart';
 part 'profile_pages.dart';
 part 'payment_method_page.dart';
-
+part 'edit_profile_page.dart';

@@ -82,7 +82,18 @@ class GeneralPage extends StatelessWidget {
                 Container(
                   height: defaultMargin,
                   width: double.infinity,
-                  color: "A5A5".toColor(),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFBC00), // Your background color
+                    // Optional: rounded corners
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2), // Shadow color with opacity
+                        blurRadius: 8, // Soft blur effect
+                        spreadRadius: 2, // How much the shadow spreads
+                        offset: Offset(0, 4), // Position of the shadow
+                      ),
+                    ],
+                  ),
                 ),
                 child ?? SizedBox()
               ],

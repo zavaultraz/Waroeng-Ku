@@ -21,10 +21,10 @@ class _orderHistoryState extends State<orderHistory> {
           if (state is TransactionLoaded) {
             if (state.transactions.length == 0) {
               return IllustrationPage(
-                title: 'Ouch Hungry',
-                subtitle: 'Seems like you have not food',
-                picturePath: 'assets/images/food/food_wishes.png',
-                buttonTitle1: 'Find Foods',
+                title: 'Waduh, Laper Loh!',
+                subtitle: 'Kayaknya perutmu lagi ngeluh,Yuk, pesan sekarang !',
+                picturePath: 'assets/images/food/laper_icon.png',
+                buttonTitle1: 'Cari sekarang',
                 buttonTap1: () {},
               );
             } else {
@@ -92,8 +92,8 @@ class _orderHistoryState extends State<orderHistory> {
                                     (e) => Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: GestureDetector(
-                                        onTap: (){
-                                          Get.to(PaymentMethodPage(paymentURL: e.paymentUrl!));
+                                        onTap: ()async{
+                                         await launch(e.paymentUrl!);
                                         },
                                         child: OrderListItem(
                                           transaction: e,

@@ -20,12 +20,16 @@ class _SignInPageState extends State<SignInPage> {
         subtitle: "Find your best ever meal",
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,8,50,0),
+              child: Image.asset('assets/images/food/icon_login.png',width: 200,),
+            ),
             Container(
               width: double.infinity,
               margin: EdgeInsets.fromLTRB(defaultMargin, 26, defaultMargin, 6),
               child: Text(
                 "Email Address",
-                style: blackFontstyle2,
+                style: blackFontstyle2.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -43,7 +47,7 @@ class _SignInPageState extends State<SignInPage> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: greyFontStyle,
+                    hintStyle: greyFontStyle.copyWith(fontWeight: FontWeight.w600),
                     hintText: 'Type your email address'),
               ),
             ),
@@ -52,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
               margin: EdgeInsets.fromLTRB(defaultMargin, 26, defaultMargin, 6),
               child: Text(
                 "Password",
-                style: blackFontstyle2,
+                style: blackFontstyle2.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
             Container(
@@ -71,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
                 obscureText: true,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintStyle: greyFontStyle,
+                    hintStyle: greyFontStyle.copyWith(fontWeight: FontWeight.w600),
                     hintText: 'Type your password'),
               ),
             ),
@@ -90,6 +94,29 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       onPressed: () async {
+                        if (emailController.text == "" ||
+                            passwordController.text == "") {
+                          Get.snackbar("", "",
+                              backgroundColor: "D9435E".toColor(),
+                              icon: Icon(
+                                MdiIcons.closeCircleOutline,
+                                color: Colors.white,
+                              ),
+                              titleText: Text(
+                                "Email or Password is worng",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              messageText: Text(
+                                "Please check your email and password",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ));
+                        }
                         setState(() {
                           isLoading = true;
                         });
@@ -132,10 +159,12 @@ class _SignInPageState extends State<SignInPage> {
                       },
                       child: Text(
                         "Login",
-                        style: blackFontstyl3.copyWith(color: Colors.white),
+                        style: blackFontstyl3.copyWith(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 20),
                       ),
                     ),
             ),
+            SizedBox(height: 10,),
+            Text('Ga punya akun daftar dulu yuk',style: blackFontstyl3.copyWith(fontWeight: FontWeight.w700,color: Colors.grey),),
             Container(
               width: double.infinity,
               height: 45,
@@ -155,6 +184,7 @@ class _SignInPageState extends State<SignInPage> {
                   "Register",
                   style: blackFontstyl3.copyWith(
                     color: Colors.white,
+                      fontWeight: FontWeight.w700, fontSize: 17
                   ),
                 ),
               ),

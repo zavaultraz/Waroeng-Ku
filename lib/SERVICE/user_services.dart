@@ -131,4 +131,49 @@ class UserServices {
 
     return ApiReturnValue(value: true);
   }
+
+  static Future<ApiReturnValue<User>> updateProfile(User user,
+      {http.Client? client}) async {
+    client ??= http.Client();
+    String url = '$baseURL/user';
+    print('URL Update profile: $url');
+
+    var response = await client.post(
+      Uri.parse(url),
+      headers: ApiServices.headersPost(token: User.token),
+      body: jsonEncode(<String, String>{
+        'name': user.name!,
+        'address': user.address!,
+        'city': user.city!,
+        'houseNumber': user.houseNumber!,
+        'phoneNumber': user.phoneNumber!,
+      }),
+    );
+
+    if (response.statusCode != 200) {
+      return ApiReturnValue(message: 'Update Profile Failed');
+    }
+    var data = jsonDecode(response.body);
+    User value = User.fromJson(data['data']);
+    return ApiReturnValue(value: value);
+  }
+  static Future<ApiReturnValue<User>> getUser(User user,
+  {http.Client? client})async{
+    client ??= http.Client();
+    String url = '$baseURL/user';
+    print('URL Get User : $url');
+    var response = await client.get(Uri.parse(url),
+    headers: ApiServices.headersGet(token: User.token),
+    );
+    if (response.statusCode != 200){
+      return ApiReturnValue(
+      message: 'Get User Failed'
+      );
+    }
+    print("response get user : ${response.body}");
+    var data =jsonDecode(response.body);
+    User value = User.fromJson(data['data']);
+    return ApiReturnValue(value: value);
+
+  }
 }

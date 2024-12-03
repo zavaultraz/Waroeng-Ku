@@ -5,11 +5,13 @@ class SuccessSignupPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IllustrationPage(
-      title: 'Yeay Complete',
-      subtitle: 'Now you are able to order\nsome foods as a self-reward',
+      title: 'Sugeng Rawuh',
+      subtitle: 'Sudah selesai semua, sekarang saatnya memanjakan diri. Pesan sekarang!',
       picturePath: 'assets/images/food/food_wishes.png',
       buttonTitle1: 'Find Food',
-      buttonTap1: () {},
+      buttonTap1: () {
+        Get.to(MainPage());
+      },
     );
   }
 }

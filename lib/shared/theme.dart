@@ -1,6 +1,6 @@
 part of 'shared.dart';
 const double defaultMargin = 24;
-Color mainColor = "FFC700".toColor();
+Color mainColor = const Color(0xFFFFB700);
 Color greyColor = "8D92A3".toColor();
 Widget loadingIndicator = SpinKitFadingCircle(size: 45, color: mainColor);
 TextStyle greyFontStyle = GoogleFonts.poppins().copyWith(color: greyColor);
