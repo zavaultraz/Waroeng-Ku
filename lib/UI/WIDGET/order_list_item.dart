@@ -24,7 +24,7 @@ class OrderListItem extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: itemWidth! - 164, //(80-92+90)
+          width: itemWidth! - 191, //(80-92+90)
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -55,7 +55,10 @@ class OrderListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(height: 13,),
-            Text(convertDateTimeDisplay(transaction.dateTime!),style: blackFontstyl3.copyWith(fontWeight: FontWeight.w700,fontSize: 12),),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(convertDateTimeDisplay(transaction.dateTime!),style: blackFontstyl3.copyWith(fontWeight: FontWeight.w700,fontSize: 13),),
+            ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12), // Padding untuk teks
               decoration: BoxDecoration(

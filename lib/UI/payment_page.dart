@@ -30,7 +30,7 @@ class _PaymentPageState extends State<PaymentPage> {
               children: <Widget>[
                 Text(
                   'Item Order',
-                  style: blackFontstyl3.copyWith(fontSize: 20),
+                  style: blackFontstyl3.copyWith(fontSize: 20,fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 12,
@@ -59,7 +59,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             width: MediaQuery.of(context).size.width - 189,
                             child: Text(
                               widget.transaction.food!.name!,
-                              style: blackFontstyle2.copyWith(fontSize: 20),
+                              style: blackFontstyle2.copyWith(fontSize: 20, fontWeight: FontWeight.w600),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             )),
@@ -69,7 +69,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   decimalDigits: 0,
                                   locale: 'id_ID')
                               .format(widget.transaction.food?.price!),
-                          style: blackFontstyle2,
+                          style: blackFontstyle2.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -79,7 +79,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     Expanded(
                       child: Text(
                         '${widget.transaction.quantity} items',
-                        style: greyFontStyle.copyWith(fontSize: 12),
+                        style: greyFontStyle.copyWith(fontSize: 12,fontWeight: FontWeight.w700),
                         textAlign: TextAlign.end,
                       ),
                     ),
@@ -96,8 +96,8 @@ class _PaymentPageState extends State<PaymentPage> {
                   height: 7,
                 ),
                 Text(
-                  "Datail transaction",
-                  style: blackFontstyle2.copyWith(fontSize: 20),
+                  "Detail transaction",
+                  style: blackFontstyle2.copyWith(fontSize: 20,fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
                   height: 4,
@@ -106,14 +106,14 @@ class _PaymentPageState extends State<PaymentPage> {
                   children: [
                     Text(
                       widget.transaction.food!.name!,
-                      style: blackFontstyle2.copyWith(fontSize: 18),
+                      style: blackFontstyle2.copyWith(fontSize: 18,fontWeight: FontWeight.w600),
                     ),
                     Spacer(),
                     Text(
                       NumberFormat.currency(
                               symbol: 'IDR ', decimalDigits: 0, locale: 'id_ID')
                           .format(widget.transaction.food?.price!),
-                      style: blackFontstyle2.copyWith(fontSize: 15),
+                      style: blackFontstyle2.copyWith(fontSize: 15,fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -124,12 +124,12 @@ class _PaymentPageState extends State<PaymentPage> {
                   children: [
                     Text(
                       'Quantity',
-                      style: blackFontstyle2.copyWith(fontSize: 18),
+                      style: blackFontstyle2.copyWith(fontSize: 18,fontWeight: FontWeight.w600),
                     ),
                     Spacer(),
                     Text(
                       "${widget.transaction.quantity.toString()} items",
-                      style: blackFontstyle2.copyWith(fontSize: 16),
+                      style: blackFontstyle2.copyWith(fontSize: 16,fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -140,7 +140,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   children: [
                     Text(
                       'Sub Total',
-                      style: blackFontstyle2.copyWith(fontSize: 18),
+                      style: blackFontstyle2.copyWith(fontSize: 18,fontWeight: FontWeight.w600),
                     ),
                     Spacer(),
                     Text(
@@ -167,7 +167,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   children: [
                     Text(
                       'Biaya Admin',
-                      style: blackFontstyle2.copyWith(fontSize: 18),
+                      style: blackFontstyle2.copyWith(fontSize: 18,fontWeight: FontWeight.w600),
                     ),
                     Spacer(),
                     Text(
@@ -176,7 +176,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           .format(widget.transaction.food!.price! *
                               widget.transaction.quantity! *
                               0.10),
-                      style: blackFontstyle2,
+                      style: blackFontstyle2.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -187,14 +187,14 @@ class _PaymentPageState extends State<PaymentPage> {
                   children: [
                     Text(
                       'Delivery Fee',
-                      style: blackFontstyle2.copyWith(fontSize: 18),
+                      style: blackFontstyle2.copyWith(fontSize: 18,fontWeight: FontWeight.w600),
                     ),
                     Spacer(),
                     Text(
                       NumberFormat.currency(
                               symbol: 'IDR ', decimalDigits: 0, locale: 'id_ID')
                           .format(20000),
-                      style: blackFontstyle2.copyWith(fontSize: 15),
+                      style: blackFontstyle2.copyWith(fontSize: 15,fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -241,7 +241,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     Text(
                       'Detail Penerima',
                       style:
-                          blackFontstyle2.copyWith(fontWeight: FontWeight.bold),
+                          blackFontstyle2.copyWith(fontWeight: FontWeight.bold,fontSize: 17),
                     ),
                     Row(
                       children: [
