@@ -61,7 +61,7 @@ class IllustrationPage extends StatelessWidget {
                     onPressed: () {
                       buttonTap2!();
                     },
-                    child: Text(buttonTitle2!,style: blackFontstyl3.copyWith(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 18),),
+                    child: Text(buttonTitle2!,style: blackFontstyl3.copyWith(color: mainColor,fontWeight: FontWeight.w700,fontSize: 18),),
                   )
           ],
         ),

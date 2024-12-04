@@ -36,21 +36,19 @@ class _orderHistoryState extends State<orderHistory> {
                     color: Colors.white,
                     width: double.infinity,
                     margin: EdgeInsets.only(bottom: defaultMargin),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: defaultMargin, vertical: 15),
+                    padding: EdgeInsets.only(
+                      top: 15,left: defaultMargin
+                        ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Your Orders',
-                          style: blackFontstyle2,
+                          style: blackFontstyle2.copyWith(fontWeight: FontWeight.w600,fontSize: 24),
                         ),
                         Text(
-                          'Wait for the best meal',
-                          style: blackFontstyl3.copyWith(color: greyColor),
-                        ),
-                        SizedBox(
-                          height: 26,
+                          'Semua pesananmu ada disini',
+                          style: blackFontstyl3.copyWith(color: greyColor, fontWeight: FontWeight.w600,fontSize: 18),
                         ),
                       ],
                     ),
@@ -69,9 +67,7 @@ class _orderHistoryState extends State<orderHistory> {
                             });
                           },
                         ),
-                        SizedBox(
-                          height: 16,
-                        ),
+
                         Builder(
                           builder: (_) {
                             List<Transaction> transaction = (selectedIndex == 0

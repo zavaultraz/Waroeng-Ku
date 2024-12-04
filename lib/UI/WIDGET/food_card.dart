@@ -6,9 +6,9 @@ class FoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(5.0),
       child: Container(
-        width: 250,
+        width: 300,
         height: 300,
         decoration: BoxDecoration(
           color: Colors.white,

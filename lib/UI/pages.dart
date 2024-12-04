@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import 'package:food_app/MODELS/model.dart';
 import 'package:food_app/SERVICE/services.dart';
+import 'package:food_app/UI/WIDGET/banner.dart';
 import 'package:food_app/UI/WIDGET/widget.dart';
 import 'package:food_app/cubit/cubit.dart';
 import 'package:food_app/cubit/food_cubit.dart';
@@ -20,6 +21,7 @@ import 'package:supercharged/supercharged.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 
 
 part 'sign_in_page.dart';

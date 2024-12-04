@@ -12,27 +12,25 @@ class OrderListItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: 80,
-          width: 80,
-          margin: EdgeInsets.only(right: 12),
+          height: 90,
+          width: 100,
+          margin: EdgeInsets.only(right: 16), // Adjusted margin for better spacing
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10), // Subtle rounded corners
             image: DecorationImage(
-                image: NetworkImage(transaction.food?.picturePath ??
-                    ''),
-                fit: BoxFit.cover,
-              scale: 1.0
+              image: NetworkImage(transaction.food?.picturePath ?? ''),
+              fit: BoxFit.cover,
             ),
           ),
         ),
         SizedBox(
-          width: itemWidth! - 182, //(80-92+90)
+          width: itemWidth! - 164, //(80-92+90)
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 transaction.food?.name ?? 'no name',
-                style: blackFontstyle2,
+                style: blackFontstyle2.copyWith(fontWeight: FontWeight.w600,fontSize: 18),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
@@ -40,12 +38,13 @@ class OrderListItem extends StatelessWidget {
                 children: [
                   Text(
                     transaction.quantity.toString() + ' items ~ ',
-                    style: blackFontstyl3,
+                    style: blackFontstyl3.copyWith(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 15),
                   ),
                   Text(
                     NumberFormat.currency(
                             symbol: 'IDR', decimalDigits: 0, locale: 'id-ID')
                         .format(transaction.total),
+                    style: blackFontstyl3.copyWith(fontWeight: FontWeight.bold,fontStyle: FontStyle.italic),
                   ),
                 ],
               ),
@@ -55,7 +54,8 @@ class OrderListItem extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(convertDateTimeDisplay(transaction.dateTime!),style: blackFontstyl3,),
+            SizedBox(height: 13,),
+            Text(convertDateTimeDisplay(transaction.dateTime!),style: blackFontstyl3.copyWith(fontWeight: FontWeight.w700,fontSize: 12),),
             Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12), // Padding untuk teks
               decoration: BoxDecoration(
@@ -89,7 +89,8 @@ class OrderListItem extends StatelessWidget {
                       ? Colors.blue // Biru untuk On Delivery
                       : transaction.status == TransactionStatus.pending
                       ? Colors.orangeAccent // Kuning untuk Pending
-                      : Colors.black, // Hitam untuk Unknown Status
+                      : Colors.black,
+                  fontWeight: FontWeight.w600,fontSize: 14// Hitam untuk Unknown Status
                 ),
               ),
             ),

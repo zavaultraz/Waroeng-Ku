@@ -10,7 +10,7 @@ class PaymentMethodPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: IllustrationPage(
         title: 'Finish Your Payment',
-        subtitle: 'Please select your payment method',
+        subtitle: 'Selesaikan pembayaran biar cepet mangan',
         picturePath: 'assets/images/food/Payment.png',
         buttonTitle1: 'Payment Method',
         buttonTap1: ()async{
@@ -19,7 +19,6 @@ class PaymentMethodPage extends StatelessWidget {
         buttonTap2: (){
           Get.to(SuccessOrderPage());
         },
-        buttonTitle2: 'Continue',
       ),
     );
   }

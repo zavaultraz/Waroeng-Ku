@@ -17,72 +17,79 @@ class _ProfilePagesState extends State<ProfilePages> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        // Profile Picture Section
         Container(
-          width: 110,
-          height: 110,
-          padding: EdgeInsets.all(10),
+          width: 150,
+          height: 150,
+          padding: EdgeInsets.all(5),
           margin: const EdgeInsets.only(top: 26),
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/food/photo_border.png'),
-              fit: BoxFit.cover,
+            border: Border.all(
+              color: Colors.white, // Border color to highlight the image
+              width: 3,
             ),
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: NetworkImage(
-                  (context.read<UserCubit>().state as userLoaded)
-                          .user
-                          .picturePath ??
-                      'https://ui-avatars.com/api/?name=${(context.read<UserCubit>().state as userLoaded)}',
-                ),
-                fit: BoxFit.cover,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10,
+                offset: Offset(0, 4), // Shadow positioning
               ),
+            ],
+            shape: BoxShape.circle, // Circle shape for the profile container
+          ),
+          child: ClipOval(
+            child: Image.network(
+              (context.read<UserCubit>().state as userLoaded)
+                  .user
+                  .picturePath ??
+                  'https://ui-avatars.com/api/?name=${(context.read<UserCubit>().state as userLoaded).user.name}',
+              fit: BoxFit.cover,
+              height: 110,
+              width: 110,
             ),
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
+
+        SizedBox(height: 5),
+
+// User Info Section (Name, Email)
         Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.person, size: 25),
-                SizedBox(width: 8), // Add spacing between icon and text
-                Text(
-                  (context.read<UserCubit>().state as userLoaded).user.name ??
-                      '', // Assuming user has an email property
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400), // Optional: set text style
-                ),
-              ],
+            // Name Text
+            Text(
+              (context.read<UserCubit>().state as userLoaded).user.name ?? '',
+              style: GoogleFonts.rubik().copyWith(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                  letterSpacing: 1.2, // Added spacing for a cleaner look
+              )
             ),
-            SizedBox(height: 4), // Add spacing between rows
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  (context.read<UserCubit>().state as userLoaded).user.email ??
-                      '', // Assuming user has an email property
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400), // Optional: set text style
-                ),
-              ],
+
+
+            // Email Text
+            Text(
+              (context.read<UserCubit>().state as userLoaded).user.email ?? '',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[600],
+                letterSpacing: 0.8, // Added spacing for readability
+              ),
             ),
           ],
         ),
+
+
+        SizedBox(height: 4),
+
+        // Settings and Transactions Section (Tabs)
         Container(
-          height: 500,
+          height: 550,
           margin: EdgeInsets.only(top: 30),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 26),
           decoration: BoxDecoration(
-            color: mainColor.withOpacity(0.8),
+            color: Colors.orange.withOpacity(0.7),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
@@ -92,7 +99,7 @@ class _ProfilePagesState extends State<ProfilePages> {
             children: [
               // Tab bar
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -108,7 +115,8 @@ class _ProfilePagesState extends State<ProfilePages> {
                             fontWeight: FontWeight.bold,
                             color: selectedTabIndex == 1
                                 ? Colors.white
-                                : Colors.black,
+                                : Colors.white,
+                            fontSize: 16
                           ),
                         ),
                         if (selectedTabIndex == 1)
@@ -121,6 +129,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                       ],
                     ),
                   ),
+                  SizedBox(width: 40),
                   GestureDetector(
                     onTap: () {
                       setState(() {
@@ -130,12 +139,13 @@ class _ProfilePagesState extends State<ProfilePages> {
                     child: Column(
                       children: [
                         Text(
-                          'Mangan Kuy',
+                          'App Setting',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: selectedTabIndex == 2
                                 ? Colors.white
-                                : Colors.black,
+                                : Colors.white,
+                            fontSize: 16
                           ),
                         ),
                         if (selectedTabIndex == 2)
@@ -150,265 +160,291 @@ class _ProfilePagesState extends State<ProfilePages> {
                   ),
                 ],
               ),
-              SizedBox(height: 16), // Spacing below the tabs
-              Container(
-                // Example content based on selected tab
 
+              SizedBox(height: 20),
+
+              // Dynamic Content for Selected Tab
+              Expanded(
                 child: selectedTabIndex == 1
-                    ? Center(
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Setting',
-                                      style: blackFontstyle2,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
+                    ? Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Setting',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                            SizedBox(
-                              height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              CupertinoIcons.right_chevron,
+                              size: 20,
+                              color: Colors.white,
                             ),
-                            GestureDetector(
-                              onTap: (){
-                                Get.to(EditProfilePage())!.then((value)=>refresh());
-                              },
-                              child: Container(
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(13),
-                                    color: mainColor.withOpacity(0.9)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        'Edit Profile',
-                                        style: blackFontstyle2,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 8.0),
-                                      child: Icon(
-                                        CupertinoIcons.right_chevron,
-                                        size: 20,
-                                      ),
-                                    ),
-                                  ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(EditProfilePage())!.then((value) => refresh());
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.orangeAccent.withOpacity(0.9),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 12.0),
+                              child: Text(
+                                'Edit Profile',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Add Addres',
-                                      style: blackFontstyle2,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
+                            Padding(
+                              padding: const EdgeInsets.only(right: 12.0),
+                              child: Icon(
+                                CupertinoIcons.right_chevron,
+                                size: 20,
+                                color: Colors.white,
                               ),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Payment',
-                                      style: blackFontstyle2,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    : Center(
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        context.read<UserCubit>().signOut();
-                                        Get.to(SignInPage());
-                                      },
-                                      child: Text(
-                                        'Log Out',
-                                        style: blackFontstyle2,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Developer',
-                                      style: blackFontstyle2,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Daftar mitra',
-                                      style: blackFontstyle2,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(13),
-                                  color: mainColor.withOpacity(0.9)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      'Term & Condition',
-                                      style: blackFontstyle2,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Icon(
-                                      CupertinoIcons.right_chevron,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
                           ],
                         ),
                       ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Add Address',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              CupertinoIcons.right_chevron,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Payment',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              CupertinoIcons.right_chevron,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+                    : Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<UserCubit>().signOut();
+                                Get.to(SignInPage());
+                              },
+                              child: Text(
+                                'Log Out',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              CupertinoIcons.right_chevron,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Developer',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              CupertinoIcons.right_chevron,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Daftar Mitra',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              CupertinoIcons.right_chevron,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.orangeAccent.withOpacity(0.9),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12.0),
+                            child: Text(
+                              'Term & Condition',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: Icon(
+                              CupertinoIcons.right_chevron,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ],
     );
+
   }
 }

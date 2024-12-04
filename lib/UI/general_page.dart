@@ -66,11 +66,11 @@ class GeneralPage extends StatelessWidget {
                             children: [
                               Text(
                                 title,
-                                style: blackFontstyle1,
+                                style: blackFontstyle1.copyWith(fontWeight: FontWeight.w700),
                               ),
                               Text(
                                 subtitle,
-                                style: blackFontstyle2,
+                                style: blackFontstyle2.copyWith(fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),

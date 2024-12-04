@@ -68,6 +68,7 @@ class _FoodPageState extends State<FoodPage> {
             ],
           ),
         ),
+        blokBanner(),
         Padding(
           padding: const EdgeInsets.only(left: defaultMargin,),
           child: Text('For your day',style: blackFontstyle2.copyWith(fontWeight: FontWeight.w600,fontSize: 24),),
@@ -122,7 +123,7 @@ class _FoodPageState extends State<FoodPage> {
             children: [
               CustomTabbar(
                 selectedIndex: selectedIndex,
-                titles: ['All', 'New Taste', 'Popular', 'Recommended'],
+                titles: ['All', 'New Food', 'Popular'],
                 onTap: (index) {
                   setState(() {
                     selectedIndex = index;

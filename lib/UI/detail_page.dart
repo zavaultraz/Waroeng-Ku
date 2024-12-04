@@ -17,6 +17,7 @@ class _DetailPageState extends State<DetailPage> {
     return Scaffold(
       body: Stack(
         children: [
+          // Background Color
           Container(
             color: mainColor,
           ),
@@ -30,21 +31,26 @@ class _DetailPageState extends State<DetailPage> {
               width: double.infinity,
               height: 300,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
+                ),
                 image: DecorationImage(
-                    image: NetworkImage(widget.transaction?.food?.picturePath ??
-                        'https://ui-avatars.com/api/?name=${widget.transaction?.food?.picturePath}'),
-                    fit: BoxFit.cover),
+                  image: NetworkImage(
+                      widget.transaction?.food?.picturePath ??
+                          'https://ui-avatars.com/api/?name=${widget.transaction?.food?.picturePath}'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
           SafeArea(
             child: ListView(
               children: [
+                // Back Button
                 Container(
                   height: 100,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: defaultMargin,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: defaultMargin),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
@@ -54,19 +60,19 @@ class _DetailPageState extends State<DetailPage> {
                         }
                       },
                       child: Container(
-                        padding: EdgeInsets.all(3),
-                        width: 30,
-                        height: 30,
+                        padding: EdgeInsets.all(5),
+                        width: 40,
+                        height: 40,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
                           color: Colors.black12,
                         ),
-                        child: Image.asset(
-                            'assets/images/food/back_arrow_white.png'),
+                        child: Image.asset('assets/images/food/back_arrow_white.png'),
                       ),
                     ),
                   ),
                 ),
+                // Content Container
                 Container(
                   margin: EdgeInsets.only(top: 180),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 26),
@@ -76,40 +82,35 @@ class _DetailPageState extends State<DetailPage> {
                       topRight: Radius.circular(30),
                     ),
                     color: Colors.white,
+                    boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10, offset: Offset(0, -5))],
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Food Name and Rating
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
-                            //food name
-                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${widget.transaction?.food?.name}',
-                                style: blackFontstyle2,
+                                widget.transaction?.food?.name ?? '',
+                                style: blackFontstyle2.copyWith(fontSize: 24, fontWeight: FontWeight.bold,),
                                 maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              SizedBox(
-                                width: 24,
-                              ),
-                              RatingStars(
-                                rate: widget.transaction?.food?.rate,
-                              )
+                              SizedBox(height: 2),
+                              RatingStars(rate: widget.transaction?.food?.rate),
                             ],
                           ),
-                          //food description
+                          // Quantity Control
                           Row(
                             children: [
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    quantity = max(
-                                        1,
-                                        quantity -
-                                            1); // Decrease quantity with lower limit of 1
+                                    quantity = max(1, quantity - 1); // Decrease quantity
                                   });
                                 },
                                 child: Container(
@@ -117,10 +118,8 @@ class _DetailPageState extends State<DetailPage> {
                                   height: 35,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/food/btn_min.png'),
-                                      fit: BoxFit
-                                          .cover, // Ensure the image fits the container
+                                      image: AssetImage('assets/images/food/btn_min.png'),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
@@ -130,19 +129,13 @@ class _DetailPageState extends State<DetailPage> {
                                 child: Text(
                                   quantity.toString(),
                                   textAlign: TextAlign.center,
-                                  style: blackFontstyl3.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  style: blackFontstyl3.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
                                 ),
                               ),
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    quantity = min(
-                                        999,
-                                        quantity +
-                                            1); // Increase quantity with upper limit of 999
+                                    quantity = min(999, quantity + 1); // Increase quantity
                                   });
                                 },
                                 child: Container(
@@ -150,10 +143,8 @@ class _DetailPageState extends State<DetailPage> {
                                   height: 35,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/food/btn_add.png'),
-                                      fit: BoxFit
-                                          .cover, // Ensure the image fits the container
+                                      image: AssetImage('assets/images/food/btn_add.png'),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                 ),
@@ -162,117 +153,81 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ],
                       ),
-                      //food description
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(height: 20),
+                      // Food Description
+                      Text(
+                        "DESCRIPTION",
+                        style: blackFontstyle1.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        widget.transaction?.food?.description ?? '',
+                        style: blackFontstyl3.copyWith(fontSize: 14),
+                        textAlign: TextAlign.justify,
+                      ),
+                      SizedBox(height: 20),
+                      // Ingredients Section
+                      Row(
                         children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 14, 0, 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "DESCRIPTION",
-                                  style: blackFontstyle1,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  widget.transaction?.food?.description ?? '',
-                                  style: blackFontstyl3,
-                                  textAlign: TextAlign.justify,
-                                ),
-                              ],
-                            ),
+                          Text(
+                            "INGREDIENTS",
+                            style: blackFontstyle1.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 6, 0, 16),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      'INGRIDIENTS',
-                                      style: blackFontstyle1,
-                                      textAlign: TextAlign.justify,
-                                    ),
-                                    SizedBox(
-                                      width: 7,
-                                    ),
-                                    Icon(
-                                      CupertinoIcons.info_circle_fill,
-                                      color: mainColor,
-                                      size: 20,
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  margin: EdgeInsets.fromLTRB(0, 4, 0, 16),
-                                  child: Text(
-                                    widget.transaction?.food?.ingredients ?? '',
-                                    style: blackFontstyle2,
-                                  ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(bottom: 16),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 0, vertical: 16),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'TOTAL PRICE ',
-                                            style: blackFontstyl3,
-                                          ),
-                                          Icon(
-                                            Icons.monetization_on,
-                                            color: mainColor,
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        NumberFormat.currency(
-                                                symbol: 'IDR ',
-                                                decimalDigits: 0,
-                                                locale: 'id_ID')
-                                            .format(
-                                                quantity * (widget.transaction!.food?.price?.toInt()?? 0)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 16,),
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 45,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: mainColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15)
-                                      )
-                                    ),
-                                    onPressed: (){
-                                      Get.to(
-                                          PaymentPage
-                                            (
-                                              transaction: widget.transaction!.copyWith(
-                                                quantity: quantity,
-                                                total: quantity*(widget.transaction?.food?.price?.toInt() ?? 0),
-                                              ),
-                                          ),
-                                      );
-                                    }, child: Text('Pesan Sekarang',style: blackFontstyle2.copyWith(color: Colors.white,fontWeight: FontWeight.bold),),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
+                          SizedBox(width: 7),
+                          Icon(CupertinoIcons.info_circle_fill, color: mainColor, size: 20),
                         ],
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        widget.transaction?.food?.ingredients ?? '',
+                        style: blackFontstyle2.copyWith(fontSize: 14,fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(height: 20),
+                      // Total Price Section
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'TOTAL PRICE',
+                                style: blackFontstyl3.copyWith(fontSize: 16, fontWeight: FontWeight.w700),
+                              ),
+                              Icon(Icons.monetization_on, color: mainColor),
+                            ],
+                          ),
+                          Text(
+                            NumberFormat.currency(symbol: 'IDR ', decimalDigits: 0, locale: 'id_ID')
+                                .format(quantity * (widget.transaction?.food?.price?.toInt() ?? 0)),
+                            style: blackFontstyl3.copyWith(fontSize: 16,fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      // Order Button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 45,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: mainColor,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                          ),
+                          onPressed: () {
+                            Get.to(
+                              PaymentPage(
+                                transaction: widget.transaction!.copyWith(
+                                  quantity: quantity,
+                                  total: quantity * (widget.transaction?.food?.price?.toInt() ?? 0),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            'Pesan Sekarang',
+                            style: blackFontstyle2.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -283,5 +238,6 @@ class _DetailPageState extends State<DetailPage> {
         ],
       ),
     );
+
   }
 }
