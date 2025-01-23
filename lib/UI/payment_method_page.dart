@@ -11,10 +11,11 @@ class PaymentMethodPage extends StatelessWidget {
       body: IllustrationPage(
         title: 'Finish Your Payment',
         subtitle: 'Selesaikan pembayaran biar cepet mangan',
-        picturePath: 'assets/images/food/Payment.png',
+        picturePath: 'assets/images/food/love_burger.png',
         buttonTitle1: 'Payment Method',
+        buttonTitle2: 'Cari Makanan Lain',
         buttonTap1: ()async{
-          await launch(paymentURL);
+          await launch(paymentURL!);
         },
         buttonTap2: (){
           Get.to(SuccessOrderPage());
