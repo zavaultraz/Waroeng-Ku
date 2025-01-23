@@ -48,7 +48,7 @@ Pastikan Anda telah menginstal:
 
 ## 📡 **API Endpoint**
 Aplikasi ini memanfaatkan RESTful API untuk pengelolaan data makanan dan pesanan. Berikut adalah endpoint utama:
-📚 **Dokumentasi API lengkap** tersedia di: [bit.ly/waroeng-ku-api](#)
+📚 **Dokumentasi API lengkap** tersedia di: [food.rtid73.com](#)
 
 ---
 
